@@ -26,18 +26,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify installation
-        run: |
-          ls -la node_modules/.bin/ | grep next || echo "next not found in .bin"
-          npm list next || echo "next not in dependencies"
-
       - name: Build with Next.js
-        run: npx next build
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
