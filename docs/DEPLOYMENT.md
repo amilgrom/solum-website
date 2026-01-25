@@ -103,7 +103,149 @@ Test the production build locally:
 
 ```bash
 npm run build
-npx serve out
+npx serve out -p 3000
 ```
 
-Visit `http://localhost:3000` to preview the static site.
+Visit `http://localhost:3000/solum-website/` to preview the static site.
+
+## Staging and Testing Strategies
+
+### Current Setup (Option 4)
+
+The site is configured with `basePath: '/solum-website'` in `next.config.ts` and a `CNAME` file pointing to `solumreg.com`. This enables dual URL support:
+
+- **Staging URL**: `https://amilgrom.github.io/solum-website/`
+- **Production URL**: `https://solumreg.com` (once DNS is configured)
+
+**Current Workflow:**
+1. Push changes to `main` branch
+2. Test and verify at GitHub Pages URL (`amilgrom.github.io/solum-website/`)
+3. When satisfied, configure DNS to point to GitHub Pages
+4. Site automatically goes live at `solumreg.com`
+5. Both URLs serve the same content
+
+**Advantages:**
+- Simple setup, single repository
+- Full production-quality testing before DNS configuration
+- No code changes needed to go live (just DNS update)
+
+**Limitations:**
+- Both URLs show same content once DNS is configured
+- No true "staging environment" separate from production
+
+### Future Option: Separate Staging Repository (Option 1)
+
+When true staging/production separation is needed:
+
+**Production Repository**: `solum-website`
+- Remove `basePath` from `next.config.ts`
+- Keep `CNAME` with `solumreg.com`
+- Configure DNS to GitHub Pages
+- **URL**: `https://solumreg.com`
+
+**Staging Repository**: `solum-website-staging`
+- Add `basePath: '/solum-website-staging'` to `next.config.ts`
+- No `CNAME` file
+- **URL**: `https://amilgrom.github.io/solum-website-staging/`
+
+**Workflow:**
+1. Make changes in staging repository
+2. Push and verify at `amilgrom.github.io/solum-website-staging/`
+3. When approved, merge/copy changes to production repository
+4. Push to production → live at `solumreg.com`
+
+**Advantages:**
+- Complete separation of staging and production
+- Production remains stable during testing
+- Full GitHub Pages deployment testing in staging
+
+**Disadvantages:**
+- Maintaining two repositories
+- Manual sync process between staging and production
+
+### Alternative Options
+
+#### Option 2: Local Production Testing Only
+
+**Setup:**
+- Keep current dual URL configuration
+- Test locally before pushing
+
+**Workflow:**
+```bash
+npm run build
+npx serve out -p 3000
+# Visit http://localhost:3000/solum-website/
+```
+
+**Advantages:**
+- Simplest approach
+- No extra repository needed
+
+**Disadvantages:**
+- Not testing actual GitHub Pages deployment
+- Only tests the build, not the hosting environment
+
+#### Option 3: Hybrid with Vercel/Netlify
+
+**Setup:**
+- **GitHub Pages** → Production (`solumreg.com`)
+- **Vercel** → Automatic preview deployments for every PR/branch
+
+**Workflow:**
+1. Create pull request
+2. Vercel automatically generates preview URL
+3. Review and test preview deployment
+4. Merge to main → deploys to GitHub Pages production
+
+**Advantages:**
+- Best developer experience
+- Automatic preview URLs for every change
+- True production-like staging environment
+
+**Disadvantages:**
+- Using two different hosting platforms
+- Additional service configuration
+
+## Transitioning from Current Setup to Staging Repository
+
+When ready to move from Option 4 to Option 1:
+
+1. **Create staging repository:**
+   ```bash
+   # Clone current repository
+   git clone https://github.com/amilgrom/solum-website.git solum-website-staging
+   cd solum-website-staging
+
+   # Create new repository on GitHub: solum-website-staging
+   git remote set-url origin https://github.com/amilgrom/solum-website-staging.git
+
+   # Update next.config.ts basePath to '/solum-website-staging'
+   # Remove CNAME file
+
+   git add .
+   git commit -m "chore: configure for staging environment"
+   git push -u origin main
+   ```
+
+2. **Update production repository:**
+   ```bash
+   cd ../solum-website
+
+   # Remove basePath from next.config.ts
+   # Keep CNAME file
+
+   git add next.config.ts
+   git commit -m "chore: remove basePath for production domain"
+   git push
+   ```
+
+3. **Configure DNS** (when ready to go live):
+   - Point `solumreg.com` A records to GitHub Pages IPs
+   - Site goes live at production URL
+
+4. **Development workflow:**
+   - Work in `solum-website-staging` repository
+   - Test at staging URL
+   - When approved, merge changes to `solum-website`
+   - Production automatically deploys
