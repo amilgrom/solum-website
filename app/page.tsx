@@ -35,7 +35,7 @@ export default function Home() {
                 </a>
                 <a
                   href="/approach"
-                  className="px-8 py-3 bg-primary-800 text-white font-semibold rounded-lg border-2 border-primary-400 hover:bg-primary-900 hover:border-primary-300 transition-all duration-200 hover:no-underline"
+                  className="px-8 py-3 bg-white/10 backdrop-blur-sm !text-white font-semibold rounded-lg border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all duration-200 hover:no-underline shadow-lg"
                 >
                   Our Approach
                 </a>

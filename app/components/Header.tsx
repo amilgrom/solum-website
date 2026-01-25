@@ -53,7 +53,7 @@ export function Header() {
             </Link>
             <Link
               href="/contact"
-              className="bg-primary-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-sm hover:shadow-md hover:no-underline"
+              className="bg-primary-600 !text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-sm hover:shadow-md hover:no-underline"
             >
               Contact
             </Link>
