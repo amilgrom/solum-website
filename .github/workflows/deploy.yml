@@ -28,18 +28,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: |
-          echo "npm version: $(npm --version)"
-          echo "node version: $(node --version)"
-          npm ci
-          echo "Dependencies installed, checking next..."
-          ls -la node_modules/.bin/ | grep next || echo "next binary not found"
-          test -f node_modules/.bin/next && echo "next binary exists" || echo "next binary missing"
+        run: npm install
 
       - name: Build with Next.js
-        run: ./node_modules/.bin/next build
-        env:
-          CI: true
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
