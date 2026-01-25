@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Solum Real Estate Group",
-  description: "Professional real estate investment and management",
+  title: "Solum Real Estate Group | Professional CRE Investing",
+  description: "Strategic commercial real estate investment and management. Building value through data-driven decisions and operational excellence.",
+  keywords: ["commercial real estate", "CRE investing", "real estate investment", "property management"],
 };
 
 export default function RootLayout({
@@ -13,6 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="antialiased">
         {children}
       </body>
