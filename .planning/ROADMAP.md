@@ -25,7 +25,7 @@ None
 **Plans**: TBD
 
 Plans:
-- [ ] 01-01: Set up repo structure, GitHub Pages config, and initial deployment
+- [x] 01-01: Set up repo structure, GitHub Pages config, and initial deployment
 - [ ] 01-02: Create design system (colors, typography, component library)
 - [ ] 01-03: Build site layout template and navigation
 
@@ -64,10 +64,10 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Infrastructure | 0/3 | Not started | - |
+| 1. Foundation & Infrastructure | 1/3 | In progress | - |
 | 2. Company Story | 0/2 | Not started | - |
 | 3. Investment Philosophy & Market Focus | 0/2 | Not started | - |
 | 4. Contact & Engagement | 0/2 | Not started | - |
 
 ---
-*Last updated: 2026-01-23 after roadmap initialization*
+*Last updated: 2026-01-24 after completing 01-01*
