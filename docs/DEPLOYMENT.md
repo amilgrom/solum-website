@@ -43,17 +43,19 @@ You can also trigger a deployment manually:
 
 ### DNS Configuration
 
+Domain registrar: **Porkbun** (porkbun.com) — log in there to manage DNS records.
+
 Point your domain to GitHub Pages:
 
 ```
-A Records:
+A Records (Host: leave blank):
 185.199.108.153
 185.199.109.153
 185.199.110.153
 185.199.111.153
 
-CNAME Record (if using www subdomain):
-www → [username].github.io
+CNAME Record:
+Host: www → amilgrom.github.io
 ```
 
 ## Workflow Details
